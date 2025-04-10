@@ -1,17 +1,20 @@
+# Usa uma imagem oficial do Python
 FROM python:3.11-slim
 
-# Define o diretório de trabalho
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia os arquivos de dependência e instala
+# Copia o arquivo de dependências
 COPY requirements.txt .
+
+# Instala as dependências
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia o resto dos arquivos da aplicação
+# Copia os demais arquivos da aplicação
 COPY . .
 
-# Expõe a porta (caso seu app use alguma, como Flask)
+# Expõe a porta usada pela aplicação Flask
 EXPOSE 8080
 
-# Comando para iniciar a aplicação
+# Define o comando para rodar a aplicação
 CMD ["python", "app.py"]
