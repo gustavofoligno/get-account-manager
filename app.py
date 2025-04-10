@@ -6,7 +6,6 @@ import os
 
 app = Flask(__name__)
 
-
 @app.route('/get-manager', methods=['POST'])
 def get_manager():
     try:
@@ -26,7 +25,7 @@ def get_manager():
                                )
 
         response = cos.get_object(Bucket=bucket_name, Key=object_name)
-        df = pd.read_csv(response['Body'])
+        df = pd.read_csv(response['Body'], encoding='latin-1')  # <- aqui está o fix
 
         df['Full Customer Name'] = df['Full Customer Name'].astype(
             str).str.upper().str.strip()
@@ -41,7 +40,6 @@ def get_manager():
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
