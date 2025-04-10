@@ -25,11 +25,9 @@ def get_manager():
                                )
 
         response = cos.get_object(Bucket=bucket_name, Key=object_name)
-        df = pd.read_csv(response['Body'], encoding='latin-1')  # <- aqui está o fix
+        df = pd.read_csv(response['Body'], encoding='latin-1')  # IMPORTANTE
 
-        df['Full Customer Name'] = df['Full Customer Name'].astype(
-            str).str.upper().str.strip()
-
+        df['Full Customer Name'] = df['Full Customer Name'].astype(str).str.upper().str.strip()
         result = df[df['Full Customer Name'] == cliente]
 
         if result.empty:
