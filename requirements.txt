@@ -1,0 +1,3 @@
+flask
+pandas
+ibm-cos-sdk
